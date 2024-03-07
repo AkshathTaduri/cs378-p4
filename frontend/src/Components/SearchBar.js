@@ -1,59 +1,51 @@
 import React, { useState } from 'react';
 
-const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [alertMessage, setAlertMessage] = useState('');
+const SearchBar = ({onSearchResult}) => {
+  const [inputValue, SetInputValue] = useState('');
+  const [alertMessage, setAlertMessage] = useState(null);
 
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
+  const handleInputChange = (event) => {
+    SetInputValue(event.target.value);
   };
 
-  const handleSearch = async () => {
-    try {
-      console.log("eher")
-      const response = await fetch('http://127.0.0.1:8000/search/AAPL');
-      console.log("here");
-  
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-  
-      const data = await response.json();
+  const handleSearch = (event) => {
+    if (inputValue.trim() !== '') {
+      const apiUrl = 'https://api.polygon.io/v2/aggs/ticker/' + inputValue + '/range/1/day/2023-01-09/2023-01-09?adjusted=true&sort=asc&limit=120&apiKey=4CmvT3OdyX09gNHvQ_6gX_yHCC3vQ1k1'
 
-      console.log(data)
-
-    } catch (error) {
-      console.error('Error:', error);
-      setAlertMessage('An error occurred while fetching data.');
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data.resultsCount !== 1) {
+          setAlertMessage("Please input a valid ticker")
+        }
+        else {
+          setAlertMessage(null)
+          onSearchResult(data)
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
     }
-  };
-  
-
+    else {
+      console.log("Please enter a search query.")
+    }
+  }
   return (
     <div>
       <input
         type="text"
-        placeholder="Search..."
-        value={searchTerm}
+        value={inputValue}
         onChange={handleInputChange}
+        placeholder="Ex. GOOG"
       />
-      <button onClick={handleSearch}>Search</button>
+      <button>
+        <img src="../images/search-interface-symbol.png" onClick={handleSearch}/>
+      </button>
 
-      {alertMessage && <div>{alertMessage}</div>}
-
-      {searchResults.length > 0 && (
-        <div>
-          <h3>Search Results:</h3>
-          <ul>
-            {searchResults.map((result) => (
-              <li key={result.symbol}>{result.symbol} - {result.name}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {alertMessage && <p>{alertMessage}</p>}
     </div>
-  );
+  )
 };
 
 export default SearchBar;
