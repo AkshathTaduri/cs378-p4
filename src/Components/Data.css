@@ -1,0 +1,12 @@
+.d-container {
+    width: 80%;
+    max-width: 960px; /* Optional: Set a maximum width if needed */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.data-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

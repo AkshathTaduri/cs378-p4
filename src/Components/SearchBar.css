@@ -1,0 +1,41 @@
+.search {
+    padding-left: 15px;
+    padding-top: 15px;
+    align-items: 'center';
+    display: 'flex'
+}
+  
+.heading {
+    font-size: 16px;
+}
+
+.search-container {
+    display: 'flex';
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar {
+    width: 85%;
+    margin-right: 10px;
+}
+
+.search-button {
+    padding-bottom: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: hsla(0, 100%, 50%, 0);
+    background-image: url('https://icon-library.com/images/white-search-icon-transparent-background/white-search-icon-transparent-background-14.jpg'); /* Replace with the path to your image */
+    background-size: cover; /* Ensures the image covers the entire button */
+    background-position: center; /* Centers the image within the button */
+    border: none; /* Remove default button border */
+    cursor: pointer; /* Add a pointer cursor for interaction */
+}
+
+.search-icon {
+    width: 15px;
+    height: 15px;
+}
+  
+  

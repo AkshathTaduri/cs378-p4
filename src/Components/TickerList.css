@@ -1,0 +1,30 @@
+.container {
+    padding-left: 15px;
+}
+
+.ticker-text {
+    font-size: 15px;
+}
+
+.ticker-list {
+    display: 'flex';
+    flex-direction: 'row';
+}
+
+.ticker-button {
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin-right: 10px;
+    width: 15%;
+}
+  
+.ticker-button.selected {
+    background-color: blue;
+}
+  
+.ticker-button:not(.selected) {
+    background-color: gray;
+}
